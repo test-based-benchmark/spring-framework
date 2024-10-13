@@ -10,6 +10,7 @@ plugins {
 	id 'me.champeau.jmh' version '0.7.2' apply false
 	id 'me.champeau.mrjar' version '0.1.1'
 	id "net.ltgt.errorprone" version "3.1.0" apply false
+	id 'org.jetbrains.kotlinx.kover' version '0.8.3'
 }
 
 ext {
@@ -21,6 +22,7 @@ description = "Spring Framework"
 
 configure(allprojects) { project ->
 	apply plugin: "org.springframework.build.localdev"
+	apply plugin: 'org.jetbrains.kotlinx.kover'
 	group = "org.springframework"
 	repositories {
 		mavenCentral()
@@ -115,4 +117,10 @@ configure([rootProject] + javaProjects) { project ->
 
 configure(moduleProjects) { project ->
 	apply from: "${rootDir}/gradle/spring-module.gradle"
+}
+
+kover {
+	merge {
+		subprojects { true}
+	}
 }
